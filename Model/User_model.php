@@ -1,18 +1,21 @@
 <?php
-// Pastikan menggunakan instruksi untuk mengkoneksikan ke database
-$con = mysqli_connect("localhost","root","","agrokendali");
-// Mengecek apakah koneksi gagal?
-if (mysqli_connect_errno($con))
-{
-echo "Gagal terhubung ke MySQL: " . mysqli_connect_error();
+// Model/UserModel.php
+
+$con = mysqli_connect("localhost", "root", "", "agrokendali");
+
+if (mysqli_connect_errno()) {
+    echo "Gagal terhubung ke MySQL: " . mysqli_connect_error();
 }
-// QueryArray dimulai
-// mahasiswa adalah nama tabel
+
+// Mengambil semua data dari tabel 'users'
 $query = mysqli_query($con, "SELECT * FROM users");
-while ($m = mysqli_fetch_array($query))
-{
 
-print "Nama: ".$m['nama'].", username: ".$m['username'].", email: ".$m['email']."<br>";
-
+echo "<h3>Data Pengguna</h3>";
+while ($m = mysqli_fetch_assoc($query)) {
+    echo "<b>Nama:</b> " . htmlspecialchars($m['nama']) . 
+         ", <b>Username:</b> " . htmlspecialchars($m['username']) . 
+         ", <b>Email:</b> " . htmlspecialchars($m['email']) .
+         ", <b>Role:</b> " . htmlspecialchars($m['role']) .
+         "<br>";
 }
 ?>

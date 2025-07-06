@@ -1,18 +1,19 @@
 <?php
-// Pastikan menggunakan instruksi untuk mengkoneksikan ke database
-$con = mysqli_connect("localhost","root","","agrokendali");
-// Mengecek apakah koneksi gagal?
-if (mysqli_connect_errno($con))
-{
-echo "Gagal terhubung ke MySQL: " . mysqli_connect_error();
+// Model/PupukModel.php
+
+$con = mysqli_connect("localhost", "root", "", "agrokendali");
+
+if (mysqli_connect_errno()) {
+    echo "Gagal terhubung ke MySQL: " . mysqli_connect_error();
 }
-// QueryArray dimulai
-// pupuk adalah nama tabel
-$query = mysqli_query($con, "SELECT * FROM pupuk");
-while ($m = mysqli_fetch_array($query))
-{
 
-print "Jenis Pupuk: ".$m['nama'].", Deskripsi: ".$m['desciption']."<br>";
+// Mengambil semua data dari tabel 'pupuk'
+$query = mysqli_query($con, "SELECT * FROM pupuk ORDER BY nama ASC");
 
+echo "<h3>Data Jenis Pupuk</h3>";
+while ($m = mysqli_fetch_assoc($query)) {
+    echo "<b>Nama Pupuk:</b> " . htmlspecialchars($m['nama']) . 
+         ", <b>Deskripsi:</b> " . htmlspecialchars($m['deskripsi']) . 
+         "<br>";
 }
 ?>

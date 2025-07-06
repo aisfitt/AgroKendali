@@ -1,18 +1,21 @@
 <?php
-// Pastikan menggunakan instruksi untuk mengkoneksikan ke database
-$con = mysqli_connect("localhost","root",""," WPWdb ");
-// Mengecek apakah koneksi gagal?
-if (mysqli_connect_errno($con))
-{
-echo "Gagal terhubung ke MySQL: " . mysqli_connect_error();
+// Model/LaporanModel.php
+
+$con = mysqli_connect("localhost", "root", "", "agrokendali");
+
+if (mysqli_connect_errno()) {
+    echo "Gagal terhubung ke MySQL: " . mysqli_connect_error();
 }
-// QueryArray dimulai
-// mahasiswa adalah nama tabel
+
+// Mengambil semua data dari tabel 'laporan'
 $query = mysqli_query($con, "SELECT * FROM laporan");
-while ($m = mysqli_fetch_array($query))
-{
 
-print "Kelembapan: ".$m['kelembapan'].", ph: ".$m['ph'].", area: ".$m['area_id'].", created: ".$m['created_at']."<br>";
-
+echo "<h3>Data Laporan Kondisi</h3>";
+while ($m = mysqli_fetch_assoc($query)) {
+    echo "<b>Kelembapan:</b> " . htmlspecialchars($m['kelembapan']) . 
+         ", <b>pH:</b> " . htmlspecialchars($m['ph']) . 
+         ", <b>Area ID:</b> " . htmlspecialchars($m['area_id']) . 
+         ", <b>Created At:</b> " . htmlspecialchars($m['created_at']) . 
+         "<br>";
 }
 ?>
