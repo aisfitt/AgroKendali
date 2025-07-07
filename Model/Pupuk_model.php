@@ -1,19 +1,11 @@
-<?php
-// Model/PupukModel.php
+function getAllPupuk($connection) {
+    $query = "SELECT * FROM pupuk ORDER BY nama ASC";
+    $result = mysqli_query($connection, $query);
 
-$con = mysqli_connect("localhost", "root", "", "agrokendali");
+    $dataPupuk = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $dataPupuk[] = $row;
+    }
 
-if (mysqli_connect_errno()) {
-    echo "Gagal terhubung ke MySQL: " . mysqli_connect_error();
+    return $dataPupuk; // Mengembalikan data
 }
-
-// Mengambil semua data dari tabel 'pupuk'
-$query = mysqli_query($con, "SELECT * FROM pupuk ORDER BY nama ASC");
-
-echo "<h3>Data Jenis Pupuk</h3>";
-while ($m = mysqli_fetch_assoc($query)) {
-    echo "<b>Nama Pupuk:</b> " . htmlspecialchars($m['nama']) . 
-         ", <b>Deskripsi:</b> " . htmlspecialchars($m['deskripsi']) . 
-         "<br>";
-}
-?>

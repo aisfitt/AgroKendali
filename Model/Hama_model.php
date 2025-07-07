@@ -1,20 +1,16 @@
 <?php
-// Model/HamaModel.php
+// Models/HamaModel.php
+require_once 'KoneksiDB.php';
 
-$con = mysqli_connect("localhost", "root", "", "agrokendali");
+function getAllHama($connection) {
+    $query = "SELECT * FROM hama";
+    $result = mysqli_query($connection, $query);
 
-if (mysqli_connect_errno()) {
-    echo "Gagal terhubung ke MySQL: " . mysqli_connect_error();
-}
+    $dataHama = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $dataHama[] = $row;
+    }
 
-// Mengambil semua data dari tabel 'hama'
-$query = mysqli_query($con, "SELECT * FROM hama");
-
-echo "<h3>Data Hama</h3>";
-while ($m = mysqli_fetch_assoc($query)) {
-    echo "<b>Judul:</b> " . htmlspecialchars($m['judul']) . 
-         ", <b>Content:</b> " . htmlspecialchars($m['content']) . 
-         ", <b>Image:</b> " . htmlspecialchars($m['image']) . 
-         "<br>";
+    return $dataHama;
 }
 ?>

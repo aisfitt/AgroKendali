@@ -1,21 +1,18 @@
 <?php
-// Model/UserModel.php
 
-$con = mysqli_connect("localhost", "root", "", "agrokendali");
-
-if (mysqli_connect_errno()) {
-    echo "Gagal terhubung ke MySQL: " . mysqli_connect_error();
+function findUserByEmail($con, $email) {
+    $stmt = mysqli_prepare($con, "SELECT id, nama, password FROM users WHERE email = ?");
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    if (mysqli_num_rows($result) === 1) {
+        return mysqli_fetch_assoc($result);
+    }
+    return null;
 }
 
-// Mengambil semua data dari tabel 'users'
-$query = mysqli_query($con, "SELECT * FROM users");
-
-echo "<h3>Data Pengguna</h3>";
-while ($m = mysqli_fetch_assoc($query)) {
-    echo "<b>Nama:</b> " . htmlspecialchars($m['nama']) . 
-         ", <b>Username:</b> " . htmlspecialchars($m['username']) . 
-         ", <b>Email:</b> " . htmlspecialchars($m['email']) .
-         ", <b>Role:</b> " . htmlspecialchars($m['role']) .
-         "<br>";
+function createUser($con, $nama, $email, $hashed_password) {
+    $stmt = mysqli_prepare($con, "INSERT INTO users (nama, email, password) VALUES (?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "sss", $nama, $email, $hashed_password);
+    return mysqli_stmt_execute($stmt);
 }
-?>

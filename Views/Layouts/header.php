@@ -11,17 +11,17 @@
   </style>
 </head>
 <body>
-
-  <header class="bg-white px-8 py-4 flex justify-between items-center border-b border-gray-200">
-    <a href="dashboard.php" class="flex items-center gap-3 cursor-pointer">
-        <i class="fas fa-leaf text-green-500 text-3xl"></i>
+  <header class="bg-white px-8 py-4 flex justify-between items-center shadow-sm sticky top-0 z-10">
+    <a href="index.php?page=dashboard" class="flex items-center gap-3 cursor-pointer">
+        <i class="fas fa-leaf text-green-500 text-3xl"></i> 
         <span class="text-2xl font-bold text-gray-800">AgroKendali</span>
     </a>
+
     <div class="flex items-center gap-4">
-        <span class="font-semibold text-gray-700 hidden sm:block">Nama Pengguna</span>
-        <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-            <i class="fas fa-user text-gray-600"></i>
-        </button>
+        <span class="font-medium"><?= htmlspecialchars($_SESSION['user_name']) ?></span>
+        <a href="#" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+            <i class="fas fa-user text-gray-500"></i>
+        </a>
     </div>
 </header>
   </body>

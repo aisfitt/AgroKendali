@@ -11,34 +11,60 @@
   </style>
 </head>
 <body>
+<?php
+// Ambil nama halaman saat ini dari URL.
+$currentPage = $_GET['page'] ?? 'dashboard';
+?>
 
-  <aside class="w-64 bg-white p-6 flex-col border-r border-gray-200 hidden lg:flex">
-    <h2 class="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-4 px-2">Menu</h2>
-    <nav class="flex flex-col space-y-2">
-        <a href="/dashboard.php" class="menu-link flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors duration-200" data-page="dashboard">
-            <i class="fas fa-home fa-fw w-5 mr-3"></i>
-            <span class="font-semibold">Dashboard</span>
+<aside class="w-64 bg-white p-6 flex-col border-r border-gray-200 hidden lg:flex">
+    <div class="px-2 pb-4 border-b">
+        <h2 class="text-xs text-gray-500 uppercase font-semibold tracking-wider">MENU</h2>
+    </div>
+    
+    <nav class="mt-6 flex flex-col space-y-2">
+        
+        <a href="index.php?page=dashboard" 
+           class="flex items-center px-4 py-3 font-medium transition-colors
+                  <?= ($currentPage === 'dashboard') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+            <i class="fas fa-home fa-fw mr-3"></i>
+            <span>Dashboard</span>
         </a>
-        <a href="../Views/Kebun/index.php" class="menu-link flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors duration-200" data-page="kebun">
-            <i class="fas fa-seedling fa-fw w-5 mr-3"></i>
-            <span class="font-semibold">Kebun</span>
+
+        <a href="index.php?page=kebun"
+           class="flex items-center px-4 py-3 font-medium transition-colors
+                  <?= ($currentPage === 'kebun') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+            <i class="fas fa-seedling fa-fw mr-3"></i>
+            <span>Kebun</span>
         </a>
-        <a href="../Views/kondisi/index.php" class="menu-link flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors duration-200" data-page="kondisi">
-            <i class="fas fa-layer-group fa-fw w-5 mr-3"></i>
-            <span class="font-semibold">Kondisi Lahan</span>
+
+        <a href="index.php?page=kondisi-lahan"
+           class="flex items-center px-4 py-3 font-medium transition-colors
+                  <?= ($currentPage === 'kondisi-lahan') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+            <i class="fas fa-layer-group fa-fw mr-3"></i>
+            <span>Kondisi Lahan</span>
         </a>
-        <a href="../Views/Panen/index.php" class="menu-link flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors duration-200" data-page="panen">
-            <i class="fas fa-tractor fa-fw w-5 mr-3"></i>
-            <span class="font-semibold">Panen</span>
+        
+        <a href="index.php?page=panen"
+           class="flex items-center px-4 py-3 font-medium transition-colors
+                  <?= ($currentPage === 'panen') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+            <i class="fas fa-tractor fa-fw mr-3"></i>
+            <span>Panen</span>
         </a>
-        <a href="../Views/Pupuk/index.php" class="menu-link flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors duration-200" data-page="pupuk">
-            <i class="fas fa-vial fa-fw w-5 mr-3"></i>
-            <span class="font-semibold">Pupuk</span>
+        
+        <a href="index.php?page=pupuk"
+           class="flex items-center px-4 py-3 font-medium transition-colors
+                  <?= ($currentPage === 'pupuk') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+            <i class="fas fa-vial fa-fw mr-3"></i>
+            <span>Pupuk</span>
         </a>
-        <a href="../Views/Hama/index.php" class="menu-link flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors duration-200" data-page="hama">
-            <i class="fas fa-bug fa-fw w-5 mr-3"></i>
-            <span class="font-semibold">Hama</span>
+        
+        <a href="index.php?page=hama"
+           class="flex items-center px-4 py-3 font-medium transition-colors
+                  <?= ($currentPage === 'hama') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+            <i class="fas fa-bug fa-fw mr-3"></i>
+            <span>Hama</span>
         </a>
+        
     </nav>
 </aside>
 
