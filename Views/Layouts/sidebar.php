@@ -16,53 +16,57 @@
 $currentPage = $_GET['page'] ?? 'dashboard';
 ?>
 
-<aside class="w-64 bg-white p-6 flex-col border-r border-gray-200 hidden lg:flex">
-    <div class="px-2 pb-4 border-b">
+<aside class="w-64 bg-white p-6 flex-col border-r border-gray-200 hidden lg:flex">    
+    <nav class=" flex flex-col space-y-2">
+        <div class="px-1 pb-2">
         <h2 class="text-xs text-gray-500 uppercase font-semibold tracking-wider">MENU</h2>
-    </div>
-    
-    <nav class="mt-6 flex flex-col space-y-2">
-        
+        </div>    
+
         <a href="index.php?page=dashboard" 
            class="flex items-center px-4 py-3 font-medium transition-colors
-                  <?= ($currentPage === 'dashboard') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+                  <?= ($currentPage === 'dashboard') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900 hover:bg-green-100 hover:text-green-600 rounded-lg' ?>">
             <i class="fas fa-home fa-fw mr-3"></i>
-            <span>Dashboard</span>
+            <span class="font-semibold">Dashboard</span>
         </a>
 
-        <a href="index.php?page=kebun"
-           class="flex items-center px-4 py-3 font-medium transition-colors
-                  <?= ($currentPage === 'kebun') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
-            <i class="fas fa-seedling fa-fw mr-3"></i>
-            <span>Kebun</span>
+        <div class="px-2 pb-4 border-b">
+        <h2 class="text-xs text-gray-500 uppercase font-semibold tracking-wider"></h2>
+        </div>
+    
+        <nav class="flex flex-col space-y-2">
+        <a href="index.php?page=kebun" 
+           class="flex items-center px-4 py-3 ... <?= ($currentPage === 'kebun') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900 hover:bg-green-100 ...' ?>">
+            <i class="fas fa-seedling mr-3"></i>
+            <span class="font-semibold">Kebun</span>
         </a>
+        </nav>
 
         <a href="index.php?page=kondisi-lahan"
            class="flex items-center px-4 py-3 font-medium transition-colors
-                  <?= ($currentPage === 'kondisi-lahan') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+                  <?= ($currentPage === 'kondisi-lahan') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900 hover:bg-green-100 hover:text-green-600 rounded-lg' ?>">
             <i class="fas fa-layer-group fa-fw mr-3"></i>
-            <span>Kondisi Lahan</span>
+            <span class="font-semibold">Kondisi Lahan</span>
         </a>
         
         <a href="index.php?page=panen"
            class="flex items-center px-4 py-3 font-medium transition-colors
-                  <?= ($currentPage === 'panen') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+                  <?= ($currentPage === 'panen') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900 hover:bg-green-100 hover:text-green-600 rounded-lg' ?>">
             <i class="fas fa-tractor fa-fw mr-3"></i>
-            <span>Panen</span>
+            <span class="font-semibold">Panen</span>
         </a>
         
         <a href="index.php?page=pupuk"
            class="flex items-center px-4 py-3 font-medium transition-colors
-                  <?= ($currentPage === 'pupuk') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+                  <?= ($currentPage === 'pupuk') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900 hover:bg-green-100 hover:text-green-600 rounded-lg' ?>">
             <i class="fas fa-vial fa-fw mr-3"></i>
-            <span>Pupuk</span>
+            <span class="font-semibold">Pupuk</span>
         </a>
         
         <a href="index.php?page=hama"
            class="flex items-center px-4 py-3 font-medium transition-colors
-                  <?= ($currentPage === 'hama') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900' ?>">
+                  <?= ($currentPage === 'hama') ? 'bg-green-600 text-white rounded-lg' : 'text-gray-900 hover:bg-green-100 hover:text-green-600 rounded-lg' ?>">
             <i class="fas fa-bug fa-fw mr-3"></i>
-            <span>Hama</span>
+            <span class="font-semibold">Hama</span>
         </a>
         
     </nav>

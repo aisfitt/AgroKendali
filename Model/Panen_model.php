@@ -1,8 +1,8 @@
 <?php
-// Models/PanenModel.php
-require_once 'KoneksiDB.php';
+// Model/Panen_model.php
 
 function getAllPanen($connection) {
+    // Menggunakan JOIN untuk mengambil nama area dari tabel 'areas'
     $query = "SELECT panen.*, areas.nama as nama_area 
               FROM panen 
               LEFT JOIN areas ON panen.area_id = areas.id
@@ -12,14 +12,21 @@ function getAllPanen($connection) {
 }
 
 function tambahPanen($connection, $data) {
-    $tanggal = mysqli_real_escape_string($connection, $data['tanggal']);
-    $area_id = (int)$data['area_id'];
-    $berat = (float)$data['berat'];
-    $jumlah_tandan = (int)$data['jumlah_tandan'];
-
-    $query = "INSERT INTO panen (tanggal, area_id, berat, jumlah_tandan) 
-              VALUES ('$tanggal', $area_id, $berat, $jumlah_tandan)";
+    // Query ini sudah benar karena TIDAK menyertakan kolom 'id'.
+    // Database akan mengisinya secara otomatis berkat AUTO_INCREMENT.
+    $query = "INSERT INTO panen (tanggal, area_id, berat, jumlah_tandan) VALUES (?, ?, ?, ?)";
     
-    return mysqli_query($connection, $query);
+    $stmt = mysqli_prepare($connection, $query);
+    
+    mysqli_stmt_bind_param(
+        $stmt, 
+        "sidi", // s(string), i(integer), d(double), i(integer)
+        $data['tanggal'], 
+        $data['area_id'], 
+        $data['berat'], 
+        $data['jumlah_tandan']
+    );
+    
+    return mysqli_stmt_execute($stmt);
 }
 ?>

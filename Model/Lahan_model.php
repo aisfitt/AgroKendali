@@ -1,6 +1,4 @@
 <?php
-// Model/LahanModel.php
-require_once 'KoneksiDB.php';  // Memanggil koneksi database
 
 /**
  * Fungsi untuk mengambil semua kebun
@@ -60,10 +58,11 @@ function tambahKebun($connection, $data) {
     $luas = mysqli_real_escape_string($connection, $data['luas_lahan']);
     $jumlah_pohon = (int)$data['jumlah_pohon'];  // Pastikan ini integer
     $tipe_tanah = mysqli_real_escape_string($connection, $data['tipe_tanah']);
+    $alamat_kebun = mysqli_real_escape_string($connection, $data['alamat_kebun']);
 
     // Query untuk memasukkan data kebun
-    $query = "INSERT INTO areas (nama, size, jumlah_pohon, tipe_tanah) 
-              VALUES ('$nama', '$luas', $jumlah_pohon, '$tipe_tanah')";
+    $query = "INSERT INTO areas (nama, size, jumlah_pohon, tipe_tanah, alamat_kebun) 
+              VALUES ('$nama', '$luas', $jumlah_pohon, '$tipe_tanah', '$alamat_kebun')";
     
     // Jalankan query dan kembalikan hasilnya
     return mysqli_query($connection, $query);

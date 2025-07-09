@@ -15,7 +15,7 @@ define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'agrokendali');
-
+define('ROOT_PATH', dirname(__DIR__));
 // 4. Informasi Alamat Website (PENTING!)
 define('BASE_URL', '/Projek/AgroKendali'); // Sesuaikan jika nama folder berbeda
 

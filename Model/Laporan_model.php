@@ -1,32 +1,26 @@
 <?php
-// Model/LaporanModel.php
+// Model/Laporan_model.php
 
-$con = mysqli_connect("localhost", "root", "", "agrokendali");
-
-if (mysqli_connect_errno()) {
-    echo "Gagal terhubung ke MySQL: " . mysqli_connect_error();
-}
-
-// Mengambil semua data dari tabel 'laporan'
-$query = mysqli_query($con, "SELECT * FROM laporan");
-
-echo "<h3>Data Laporan Kondisi</h3>";
-while ($m = mysqli_fetch_assoc($query)) {
-    echo "<b>Kelembapan:</b> " . htmlspecialchars($m['kelembapan']) . 
-         ", <b>pH:</b> " . htmlspecialchars($m['ph']) . 
-         ", <b>Area ID:</b> " . htmlspecialchars($m['area_id']) . 
-         ", <b>Created At:</b> " . htmlspecialchars($m['created_at']) . 
-         "<br>";
-}
+/**
+ * Mengambil semua data laporan dari database,
+ * dan menggabungkannya dengan nama area dari tabel 'areas'.
+ */
 function getAllLaporan($connection) {
-    $query = "SELECT * FROM laporan";  // Query untuk mengambil semua data laporan
+    $query = "SELECT l.*, a.nama AS nama_area 
+              FROM laporan l
+              LEFT JOIN areas a ON l.area_id = a.id
+              ORDER BY l.created_at DESC";
+              
     $result = mysqli_query($connection, $query);
     
-    // Mengecek apakah query berhasil
     if ($result) {
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);  // Mengembalikan data dalam bentuk array asosiatif
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
     } else {
-        return [];  // Mengembalikan array kosong jika query gagal
+        // Jika ada error, tampilkan untuk debugging
+        error_log("Query Gagal: " . mysqli_error($connection));
+        return [];
     }
 }
+
+// Nanti Anda bisa tambahkan fungsi lain seperti tambahLaporan, hapusLaporan, dll.
 ?>
