@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $berat = $_POST['berat'];
     $jumlah_tandan = $_POST['jumlah_tandan'];
 
+
     // Query untuk menyimpan data
     $query = "INSERT INTO panen (tanggal, area_id, berat, jumlah_tandan) 
               VALUES ('$tanggal', '$area_id', '$berat', '$jumlah_tandan')";
@@ -20,5 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Setelah simpan, kembalikan pengguna ke halaman utama panen
     header("Location: index.php");
     exit();
+    
 }
 ?>

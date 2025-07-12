@@ -1,57 +1,40 @@
-<div class="flex-1 bg-[#f0f7f4] min-h-screen p-6">
-    <div class="bg-white h-screen p-6 rounded-2xl shadow-md">
-        <div class="flex justify-between items-center mb-4">
-        <h1 class="text-3xl font-bold text-green-700 p-5">Laporan Kondisi Lahan</h1>
-        <a href="index.php?page=kondisi-lahan&action=tambah" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-5 rounded-lg">
+<main class="flex-1 p-10 overflow-y-auto" style="background-color: #f0f7f4;">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-teal-700">💧 Laporan Kondisi Lahan</h1>
+        <a href="index.php?page=kondisi-lahan&action=tambah" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-5 rounded-lg">
             <i class="fas fa-plus mr-2"></i> Tambah Laporan Baru
         </a>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-lg overflow-auto border">
-    <table class="min-w-full table-fixed">
-        <thead class="bg-teal-50">
-            <tr>
-                <th class="w-1/6 p-4 text-left text-sm font-semibold text-teal-900">TANGGAL</th>
-                <th class="w-1/6 p-4 text-left text-sm font-semibold text-teal-900">KEBUN / AREA</th>
-                <th class="w-1/6 p-4 text-left text-sm font-semibold text-teal-900">KELEMBAPAN</th>
-                <th class="w-1/6 p-4 text-left text-sm font-semibold text-teal-900">PH TANAH</th>
-                <th class="w-1/6 p-4 text-center text-sm font-semibold text-teal-900">KONDISI</th>
-                <th class="w-1/6 p-4 text-center text-sm font-semibold text-teal-900">AKSI</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-100">
-            <?php if (empty($semuaLaporan)): ?>
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden border">
+        <table class="min-w-full">
+            <thead class="bg-teal-50">
                 <tr>
-                    <td colspan="6" class="p-6 text-center text-gray-500">Belum ada data laporan.</td>
+                    <th class="p-4 text-left text-sm font-semibold text-teal-800">TANGGAL</th>
+                    <th class="p-4 text-left text-sm font-semibold text-teal-800">KEBUN / AREA</th>
+                    <th class="p-4 text-left text-sm font-semibold text-teal-800">KELEMBAPAN</th>
+                    <th class="p-4 text-left text-sm font-semibold text-teal-800">PH TANAH</th>
+                    <th class="p-4 text-center text-sm font-semibold text-teal-800">AKSI</th>
                 </tr>
-            <?php else: ?>
-                <?php foreach ($semuaLaporan as $laporan): ?>
-                    <tr class="hover:bg-gray-50">
+            </thead>
+            <tbody class="divide-y">
+                <?php if (empty($semuaLaporan)): ?>
+                    <tr><td colspan="5" class="p-6 text-center text-gray-500">Belum ada data laporan.</td></tr>
+                <?php else: ?>
+                    <?php foreach ($semuaLaporan as $laporan): ?>
+                    <tr>
                         <td class="p-4"><?= date('d M Y', strtotime($laporan['created_at'])) ?></td>
-                        <td class="p-4"><?= htmlspecialchars($laporan['nama_kebun']) ?></td>
+                        <td class="p-4 font-medium"><?= htmlspecialchars($laporan['nama_kebun']) ?></td>
                         <td class="p-4"><?= htmlspecialchars($laporan['kelembapan']) ?>%</td>
                         <td class="p-4"><?= htmlspecialchars($laporan['ph']) ?></td>
-                        <td class="p-4 text-center">
-                            <?php if ($laporan['status_kondisi'] === 'Aman'): ?>
-                                <span class="text-green-600 font-semibold"><?= $laporan['status_kondisi'] ?></span>
-                            <?php else: ?>
-                                <span class="text-red-600 font-semibold"><?= $laporan['status_kondisi'] ?></span>
-                            <?php endif; ?>
-                        </td>
-                        <td class="p-4 text-center">
-                            <a href="index.php?page=kondisi-lahan&action=hapus&id=<?= htmlspecialchars($laporan['id']) ?>" class="text-red-600 hover:text-red-900">
-                                <i class="fas fa-trash-alt mr-1"></i> Hapus
-                            </a>
-                        </td>
+                        <td class="p-4 text-center"><a href="#" class="text-red-500">Hapus</a></td>
                     </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </tbody>
-    </table>
-</div>
-
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </div>
-</div>
+</main>
 
 <div id="modalTambahLaporan" class="hidden fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
