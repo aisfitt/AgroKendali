@@ -33,4 +33,10 @@ function tambahTransaksiPupuk($connection, $data) {
     mysqli_stmt_bind_param($stmt, "idi", $data['pupuk_id'], $data['jumlah'], $data['area_id']);
     return mysqli_stmt_execute($stmt);
 }
+
+function countJenisPupuk($connection) {
+    $query = "SELECT COUNT(id) as total FROM pupuk";
+    $result = mysqli_query($connection, $query);
+    return mysqli_fetch_assoc($result)['total'];
+}
 ?>

@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // FILE ROUTER UTAMA
 
 // Memuat file konfigurasi (yang akan otomatis memulai session juga)
@@ -14,13 +16,17 @@ $currentPage = $page;
 // Routing ke Controller yang sesuai
 switch ($page) {
     case 'beranda':
-        require_once '../AgroKendali/PageController.php';
+        require_once '../AgroKendali/Controllers/pageController.php';
         index();
         break;
 
     case 'dashboard':
-        require_once '../AgroKendali/Controllers/PageController.php';
+        require_once '../AgroKendali/Controllers/Dashboard.php';
         dashboard();
+        break;
+
+    case 'ubah-password':
+        require_once '../AgroKendali/Controllers/User.php';
         break;
 
     case 'login':
@@ -30,6 +36,10 @@ switch ($page) {
         } elseif ($action === 'process') {
             login_process();
         }
+        break;
+
+    case 'informasi-akun':
+        require_once '../AgroKendali/Controllers/user.php';
         break;
 
     case 'register':
@@ -42,30 +52,18 @@ switch ($page) {
         break;
 
     case 'logout':
-        require_once '../AgroKendali/Controllers/Auth.php';
+        require_once '../AgroKendali/Controllers/index.php';
         logout_process();
         break;
 
     case 'kebun':
-        require_once '../AgroKendali/Controllers/Lahan.php'; // Ganti nama file jika perlu
-        if ($action === 'store') {
-            addKebun();
-        } elseif ($action === 'hapus') {
-            deleteKebun();
-        } else {
-            listKebun();
-        }
-        break;
-    
     case 'kebun-tambah':
-        require_once '../AgroKendali/Controllers/Lahan.php'; // Ganti nama file jika perlu
-        showTambahForm();
+        require_once 'Controllers/Lahan.php'; // Ganti nama file jika perlu
         break;
 
     // --- TAMBAHKAN CASE BARU INI ---
     case 'kondisi-lahan':
-        require_once '../AgroKendali/Controllers/LaporanKondisi.php'; // Panggil controller yang benar
-        listLaporan(); // Jalankan fungsi untuk menampilkan halaman
+        require_once '../AgroKendali/Controllers/LaporanKondisi.php'; // Path yang benar
         break;
 
     // TAMBAHKAN CASE INI
@@ -83,16 +81,6 @@ switch ($page) {
         // --- TAMBAHKAN CASE UNTUK FITUR PUPUK ---
     case 'pupuk':
     require_once '../AgroKendali/Controllers/Pupuk.php';
-    $action = $_GET['action'] ?? 'index';
-
-    if ($action === 'riwayat') {
-        showRiwayat(); // Panggil fungsi untuk menampilkan riwayat
-    } elseif ($action === 'jenis') {
-        showJenis(); // Panggil fungsi untuk menampilkan kelola jenis
-    } else {
-        // Jika tidak ada aksi, tampilkan menu pilihan
-        showPupukMenu();
-    }
     break;
 
     // TAMBAHKAN ATAU PASTIKAN CASE INI ADA

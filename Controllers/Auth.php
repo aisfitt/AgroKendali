@@ -2,6 +2,28 @@
 // Memanggil file Model
 require_once '../AgroKendali/Model/User_model.php';
 
+// Router kecil di dalam controller
+$action = $_GET['action'] ?? 'index';
+
+if ($page === 'login') {
+    if ($action === 'process') {
+        login_process();
+    } else {
+        login_page();
+    }
+} elseif ($page === 'register') {
+    // ... logika untuk register ...
+} elseif ($page === 'logout') {
+    // ... logika untuk logout ...
+}
+
+// Menampilkan HALAMAN LOGIN
+function login_page() {
+    // Controller merakit halaman dari awal sampai akhir
+    require_once '../AgroKendali/Views/Layouts/template_header_auth.php'; // Panggil template khusus
+    include '../AgroKendali/Views/akun/login.php';                     // Panggil konten inti
+    require_once '../AgroKendali/Views/Layouts/template_footer.php';       // Panggil penutup
+}
 // Menampilkan halaman register
 function register_page() {
     if (isUserLoggedIn()) {
@@ -36,15 +58,6 @@ function register_process() {
         header('Location: index.php?page=register&error=db_error');
     }
     exit();
-}
-
-// Menampilkan halaman login
-function login_page() {
-    if (isUserLoggedIn()) {
-        header('Location: index.php?page=dashboard');
-        exit();
-    }
-    require_once '../AgroKendali/Views/akun/login.php';
 }
 
 // Memproses data login

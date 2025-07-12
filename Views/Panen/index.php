@@ -11,12 +11,10 @@
     <style> body { font-family: 'Inter', sans-serif; } </style>
 </head>
 <body class="flex flex-col h-screen">
-
     <div class="flex flex-1 overflow-hidden">
-
-        <main class="flex-1 p-10 overflow-y-auto bg-gray-50">
+        <main class="flex-1 p-10 bg-[#f0f7f4] min-h-screen overflow-y-auto ">
             <div class="flex justify-between items-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800">Analisis Hasil Panen</h1>
+                <h1 class="text-3xl font-bold text-green-700 p-5">Analisis Hasil Panen</h1>
                 <button onclick="openModal()" class="bg-green-600 text-white font-bold px-5 py-2 rounded-lg hover:bg-green-700">
                     <i class="fas fa-plus mr-2"></i>Tambah Data Panen
                 </button>
@@ -36,6 +34,7 @@
                                     <th class="p-3 font-semibold">Tanggal</th>
                                     <th class="p-3 font-semibold">Area</th>
                                     <th class="p-3 font-semibold">Berat (kg)</th>
+                                    <th class="p-3 font-semibold">Jumlah Tandan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,6 +44,7 @@
                                         <td class="p-3"><?= htmlspecialchars(date('d M Y', strtotime($row['tanggal']))) ?></td>
                                         <td class="p-3"><?= htmlspecialchars($row['nama_area'] ?? 'N/A') ?></td>
                                         <td class="p-3 font-medium"><?= htmlspecialchars($row['berat']) ?></td>
+                                        <td class="p-3 font-medium"><?= htmlspecialchars($row['jumlah_tandan']) ?></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 <?php else: ?>

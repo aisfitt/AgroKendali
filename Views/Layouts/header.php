@@ -23,13 +23,12 @@ if (!defined('BASE_URL')) {
             </div>
         </div>
 
-        <div class="absolute top-full right-0 mt-2 w-56 bg-white rounded-md shadow-lg border py-1 hidden group-hover:block z-30">
+        <div class="absolute top-full right-0 w-56 bg-white rounded-md shadow-lg border py-1 hidden group-hover:block z-30">
             <div class="px-4 py-3 border-b">
                 <p class="text-sm font-semibold text-gray-800"><?= htmlspecialchars($_SESSION['user_name'] ?? 'Pengguna') ?></p>
                 <p class="text-xs text-gray-500">Status: Aktif</p>
             </div>
-            <a href="#" class="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                <i class="fas fa-user-circle fa-fw w-5 mr-2 text-gray-500"></i>
+            <a href="index.php?page=informasi-akun" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                 Informasi Akun
             </a>
             <a href="<?php echo BASE_URL; ?>/logout.php" class="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">

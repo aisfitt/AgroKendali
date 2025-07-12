@@ -11,7 +11,7 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<header class="bg-white px-8 py-4 flex justify-between items-center shadow-sm">
+<header class="bg-white px-8 py-6 flex justify-between items-center shadow-sm">
     
     <div class="flex items-center gap-x-6">
         <a href="<?= BASE_URL ?>/index.php?page=beranda" class="flex items-center gap-3 cursor-pointer">
@@ -26,7 +26,7 @@
 
     <div class="flex items-center gap-4">
         <?php if (isUserLoggedIn()): ?>
-            <a href="index.php?page=dashboard" class="bg-green-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-600 transition-colors">Dashboard</a>
+            <a href="index.php?page=dashboard" class="bg-[#4c9980] text-white font-bold py-2 px-6 rounded-lg hover:bg-green-600 transition-colors">Dashboard</a>
             <a href="index.php?page=logout" class="text-gray-500 hover:text-red-500" title="Logout">
                 <i class="fas fa-sign-out-alt fa-lg"></i>
             </a>
@@ -37,7 +37,8 @@
     </div>
 
 </header>
-<section class="min-h-screen flex flex-col md:flex-row justify-center items-center bg-blue-400 p-6">
+<section class="min-h-screen flex flex-col md:flex-row justify-center items-center bg-[#8fcab3]
+ p-6">
     <div class="flex-1 text-center md:text-left">
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
             Pemantauan dan Pengendalian Operasional Perkebunan Kelapa Sawit

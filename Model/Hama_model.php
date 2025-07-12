@@ -42,4 +42,10 @@ function hapusHama($connection, $id) {
     mysqli_stmt_bind_param($stmt, "i", $id);
     return mysqli_stmt_execute($stmt);
 }
+
+function countHama($connection) {
+    $query = "SELECT COUNT(id) as total FROM hama";
+    $result = mysqli_query($connection, $query);
+    return mysqli_fetch_assoc($result)['total'];
+}
 ?>

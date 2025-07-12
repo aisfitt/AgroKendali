@@ -1,4 +1,4 @@
-<main class="flex-1 p-10 overflow-y-auto">
+<main class="flex-1 p-10 overflow-y-auto bg-[#f0f7f4] min-h-screen">
     <div class="flex justify-between items-center mb-10">
         <h1 class="text-4xl font-extrabold text-emerald-700 tracking-tight">🐛 Data Hama & Penyakit</h1>
         <a href="index.php?page=hama&action=tambah" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-5 rounded-full shadow transition">

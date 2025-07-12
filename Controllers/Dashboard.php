@@ -1,17 +1,31 @@
 <?php
-// Controllers/DashboardController.php
-require_once '../Model/KoneksiDB.php';  // Memanggil file KoneksiDB.php untuk mendapatkan $con
-require_once '../Model/LahanModel.php';  // Memanggil model untuk kebun
+// Controllers/Dashboard.php
 
-function showDashboard() {
-    // Menggunakan $con untuk query database
-    global $con;
+// Panggil semua model yang dibutuhkan
+require_once '../AgroKendali/Model/Lahan_model.php';
+require_once '../AgroKendali/Model/Laporan_model.php';
+require_once '../AgroKendali/Model/Panen_model.php';
+require_once '../AgroKendali/Model/Pupuk_model.php';
+require_once '../AgroKendali/Model/Hama_model.php';
 
-    // Mengambil data jumlah kebun
-    $jumlahKebun = count(getAllKebun($con));  // Fungsi getAllKebun() akan menggunakan koneksi database
+function dashboard() {
+    global $con, $currentPage;
+    $currentPage = 'dashboard';
 
-    // Tampilkan halaman dashboard dengan data
-    include 'Views/Layouts/header.php';
-    include 'Views/dashboard.php';  // Tampilkan halaman dashboard
+    // Memanggil fungsi dari model
+    $jumlahKebun     = countKebun($con);               // Dari Model/Lahan_model.php
+    $kondisiTanah    = countLaporan($con);             // Dari Model/Laporan_model.php
+    $totalPanen      = sumTotalPanen($con);            // Dari Model/Panen_model.php
+    $jenisPupuk      = countJenisPupuk($con);          // Dari Model/Pupuk_model.php
+    $laporanHama     = countHama($con);                // Dari Model/Hama_model.php
+
+
+    // Kirim data ke view
+    require_once '../AgroKendali/Views/Layouts/header.php';
+    echo '<div class="flex  overflow-hidden">';
+    require_once '../AgroKendali/Views/Layouts/sidebar.php';
+    require_once '../AgroKendali/Views/dashboard.php';
+    echo '</div>';
 }
+
 ?>

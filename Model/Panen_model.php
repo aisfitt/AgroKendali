@@ -29,4 +29,10 @@ function tambahPanen($connection, $data) {
     
     return mysqli_stmt_execute($stmt);
 }
+
+function sumTotalPanen($connection) {
+    $query = "SELECT SUM(berat) as total_berat FROM panen";
+    $result = mysqli_query($connection, $query);
+    return mysqli_fetch_assoc($result)['total_berat'];
+}
 ?>

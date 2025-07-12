@@ -1,26 +1,41 @@
 <?php
-// Model/Laporan_model.php
+// Models/Laporan_model.php
 
-/**
- * Mengambil semua data laporan dari database,
- * dan menggabungkannya dengan nama area dari tabel 'areas'.
- */
 function getAllLaporan($connection) {
-    $query = "SELECT l.*, a.nama AS nama_area 
-              FROM laporan l
-              LEFT JOIN areas a ON l.area_id = a.id
+    $query = "SELECT l.*, a.nama AS nama_kebun 
+              FROM laporan l 
+              JOIN areas a ON l.area_id = a.id 
               ORDER BY l.created_at DESC";
-              
     $result = mysqli_query($connection, $query);
-    
-    if ($result) {
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    } else {
-        // Jika ada error, tampilkan untuk debugging
-        error_log("Query Gagal: " . mysqli_error($connection));
-        return [];
-    }
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-// Nanti Anda bisa tambahkan fungsi lain seperti tambahLaporan, hapusLaporan, dll.
+// FUNGSI BARU UNTUK MENYIMPAN LAPORAN
+function tambahLaporan($connection, $data) {
+    $query = "INSERT INTO laporan (area_id, kelembapan, ph) VALUES (?, ?, ?)";
+    $stmt = mysqli_prepare($connection, $query);
+    // Tipe data: i (integer), d (double/desimal), d (double/desimal)
+    mysqli_stmt_bind_param(
+        $stmt, 
+        "idd", 
+        $data['area_id'], 
+        $data['kelembapan'], 
+        $data['ph']
+    );
+    return mysqli_stmt_execute($stmt);
+}
+
+// FUNGSI UNTUK MENGHAPUS LAPORAN
+function hapusLaporan($connection, $id) {
+    $query = "DELETE FROM laporan WHERE id = ?";
+    $stmt = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    return mysqli_stmt_execute($stmt);
+}
+
+function countLaporan($connection) {
+    $query = "SELECT COUNT(id) as total FROM laporan";
+    $result = mysqli_query($connection, $query);
+    return mysqli_fetch_assoc($result)['total'];
+}
 ?>
