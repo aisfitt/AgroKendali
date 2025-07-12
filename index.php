@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // FILE ROUTER UTAMA
 
 // Memuat file konfigurasi (yang akan otomatis memulai session juga)
@@ -47,25 +49,36 @@ switch ($page) {
         break;
 
     case 'kebun':
-        require_once '../AgroKendali/Controllers/Lahan.php'; // Ganti nama file jika perlu
-        if ($action === 'store') {
-            addKebun();
-        } elseif ($action === 'hapus') {
-            deleteKebun();
-        } else {
-            listKebun();
-        }
-        break;
-    
-    case 'kebun-tambah':
-        require_once '../AgroKendali/Controllers/Lahan.php'; // Ganti nama file jika perlu
-        showTambahForm();
-        break;
+    require_once '../AgroKendali/Controllers/Lahan.php';
+    $action = $_GET['action'] ?? 'index';
+
+    if ($action === 'store') {
+        addKebun();
+    } elseif ($action === 'hapus') {
+        deleteKebun();
+    } elseif ($action === 'tambah') {
+        showTambahForm(); // ✅ INI YANG PENTING
+    } else {
+        listKebun();
+    }
+    break;
+
 
     // --- TAMBAHKAN CASE BARU INI ---
     case 'kondisi-lahan':
-        require_once '../AgroKendali/Controllers/LaporanKondisi.php'; // Panggil controller yang benar
-        listLaporan(); // Jalankan fungsi untuk menampilkan halaman
+        require_once '../AgroKendali/Controllers/LaporanKondisi.php'; // Path yang benar
+        $action = $_GET['action'] ?? 'index'; // Cek aksi yang diminta
+
+        if ($action === 'tambah') {
+            // Jika aksinya 'tambah', panggil fungsi untuk menampilkan form
+            showTambahLaporanForm();
+        } elseif ($action === 'store') {
+            // Jika aksinya 'store', panggil fungsi untuk memproses form
+            addLaporan();
+        } else {
+            // Jika tidak ada aksi, tampilkan daftar laporan (default)
+            listLaporan();
+        }
         break;
 
     // TAMBAHKAN CASE INI

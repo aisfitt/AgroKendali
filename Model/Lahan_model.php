@@ -1,70 +1,85 @@
 <?php
+// Models/Lahan_model.php
 
 /**
- * Fungsi untuk mengambil semua kebun
- * @param mysqli $connection Koneksi database
- * @return array Data kebun dalam bentuk array asosiatif
+ * Mengambil semua data kebun.
  */
 function getAllKebun($connection) {
     $query = "SELECT * FROM areas ORDER BY nama ASC";
     $result = mysqli_query($connection, $query);
-    
-    if ($result) {
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);  // Mengembalikan data sebagai array asosiatif
-    } else {
-        return [];  // Kembalikan array kosong jika query gagal
-    }
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
 /**
- * Fungsi untuk mengambil kebun berdasarkan ID
- * @param mysqli $connection Koneksi database
- * @param int $id ID kebun
- * @return array|null Data kebun jika ditemukan, null jika tidak ditemukan
+ * Mengambil satu data kebun berdasarkan ID.
  */
 function getKebunById($connection, $id) {
-    $id = (int)$id;  // Pastikan ID adalah integer untuk mencegah SQL Injection
-    $query = "SELECT * FROM areas WHERE id = $id";
-    $result = mysqli_query($connection, $query);
-    
-    if ($result) {
-        return mysqli_fetch_assoc($result);  // Mengembalikan data kebun
-    } else {
-        return null;  // Jika tidak ditemukan, kembalikan null
-    }
+    $query = "SELECT * FROM areas WHERE id = ?";
+    $stmt = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return mysqli_fetch_assoc($result);
 }
 
 /**
- * Fungsi untuk menghapus kebun berdasarkan ID
- * @param mysqli $connection Koneksi database
- * @param int $id ID kebun yang akan dihapus
- * @return bool True jika berhasil menghapus, false jika gagal
- */
-function hapusKebun($connection, $id) {
-    $id = (int)$id;  // Pastikan ID adalah integer
-    $query = "DELETE FROM areas WHERE id = $id";
-    return mysqli_query($connection, $query);  // Eksekusi query dan kembalikan hasilnya
-}
-
-/**
- * Fungsi untuk menambah kebun baru
- * @param mysqli $connection Koneksi database
- * @param array $data Data kebun yang akan dimasukkan (nama, luas, jumlah pohon, tipe tanah)
- * @return bool True jika berhasil, false jika gagal
+ * Menambah data kebun baru ke database.
  */
 function tambahKebun($connection, $data) {
-    // Sanitasi input untuk mencegah SQL Injection
-    $nama = mysqli_real_escape_string($connection, $data['nama_kebun']);
-    $luas = mysqli_real_escape_string($connection, $data['luas_lahan']);
-    $jumlah_pohon = (int)$data['jumlah_pohon'];  // Pastikan ini integer
-    $tipe_tanah = mysqli_real_escape_string($connection, $data['tipe_tanah']);
-    $alamat_kebun = mysqli_real_escape_string($connection, $data['alamat_kebun']);
-
-    // Query untuk memasukkan data kebun
+    // Menambahkan 'alamat_kebun' ke dalam query
     $query = "INSERT INTO areas (nama, size, jumlah_pohon, tipe_tanah, alamat_kebun) 
-              VALUES ('$nama', '$luas', $jumlah_pohon, '$tipe_tanah', '$alamat_kebun')";
+              VALUES (?, ?, ?, ?, ?)";
     
-    // Jalankan query dan kembalikan hasilnya
-    return mysqli_query($connection, $query);
+    $stmt = mysqli_prepare($connection, $query);
+    
+    // "s" untuk string, "i" untuk integer
+    // Sesuaikan tipe data: s, s, i, s, s
+    mysqli_stmt_bind_param(
+        $stmt, 
+        "ssiss", 
+        $data['nama_kebun'], 
+        $data['luas_lahan'], 
+        $data['jumlah_pohon'], 
+        $data['tipe_tanah'],
+        $data['alamat_kebun'] // Menambahkan variabel alamat
+    );
+    
+    return mysqli_stmt_execute($stmt);
+}
+
+/**
+ * Memperbarui data kebun yang ada.
+ */
+function updateKebun($connection, $id, $data) {
+    $query = "UPDATE areas SET 
+                nama = ?, 
+                size = ?, 
+                jumlah_pohon = ?, 
+                tipe_tanah = ?,
+                alamat_kebun = ?
+              WHERE id = ?";
+              
+    $stmt = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param(
+        $stmt, 
+        "ssissi", 
+        $data['nama_kebun'], 
+        $data['luas_lahan'], 
+        $data['jumlah_pohon'], 
+        $data['tipe_tanah'],
+        $data['alamat_kebun'],
+        $id
+    );
+    return mysqli_stmt_execute($stmt);
+}
+
+/**
+ * Menghapus data kebun berdasarkan ID.
+ */
+function hapusKebun($connection, $id) {
+    $query = "DELETE FROM areas WHERE id = ?";
+    $stmt = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    return mysqli_stmt_execute($stmt);
 }
 ?>

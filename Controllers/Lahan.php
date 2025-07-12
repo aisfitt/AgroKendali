@@ -1,41 +1,55 @@
 <?php
-// Controllers/KebunController.php (atau Lahan.php sesuai penamaan Anda)
+// Controllers/KebunController.php
 
-// Panggil Model dari lokasi yang benar
-// Pastikan path ini benar dari lokasi file controller ini
-require_once '../AgroKendali/Model/Lahan_model.php'; 
+require_once '../AgroKendali/model/Lahan_model.php';
 
-// Fungsi untuk menampilkan daftar kebun
+// Ambil variabel dari router utama
+global $page, $con, $currentPage;
+
+// Router kecil di dalam controller
+$action = $_GET['action'] ?? 'index';
+
+// Tentukan fungsi mana yang akan dijalankan
+if ($action === 'kebun-tambah') {
+    showTambahForm();
+} elseif ($action === 'store') {
+    addKebun();
+} elseif ($action === 'hapus') {
+    deleteKebun();
+} else {
+    listKebun();
+}
+
+// Menampilkan halaman DAFTAR KEBUN
 function listKebun() {
     global $con, $currentPage; 
     $semuaKebun = getAllKebun($con);
-
-    // Perakitan Halaman Lengkap
+    
     require_once '../AgroKendali/Views/Layouts/template_header.php';
-    require_once '../AgroKendali/Views/Layouts/header.php';
+    include '../AgroKendali/Views/Layouts/header.php';
     echo '<div class="flex flex-1 overflow-hidden">';
-    require_once '../AgroKendali/Views/Layouts/sidebar.php';
-    require_once '../AgroKendali/Views/Kebun/index.php'; // Konten Inti
+    include '../AgroKendali/Views/Layouts/sidebar.php';
+    include '../AgroKendali/Views/Kebun/index.php';
     echo '</div>';
     require_once '../AgroKendali/Views/Layouts/template_footer.php';
 }
 
-// Fungsi untuk menampilkan form tambah
+// Menampilkan halaman FORM TAMBAH
 function showTambahForm() {
+    echo "✅ showTambahForm DIJALANKAN<br>"; // ⬅️ debug baris pertama
     global $currentPage;
     $currentPage = 'kebun';
     
-    // Perakitan Halaman Lengkap
     require_once '../AgroKendali/Views/Layouts/template_header.php';
-    require_once '../AgroKendali/Views/Layouts/header.php';
+    include '../AgroKendali/Views/Layouts/header.php';
     echo '<div class="flex flex-1 overflow-hidden">';
-    require_once '../AgroKendali/Views/Layouts/sidebar.php';
-    require_once '../AgroKendali/Views/Kebun/tambah.php'; // Konten Inti
+    include '../AgroKendali/Views/Layouts/sidebar.php';
+    include '../AgroKendali/Views/Kebun/TambahKebun.php';
     echo '</div>';
     require_once '../AgroKendali/Views/Layouts/template_footer.php';
 }
 
-// Fungsi untuk menambahkan kebun
+// Memproses data dari form
 function addKebun() {
     global $con;
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -44,24 +58,19 @@ function addKebun() {
         exit();
     }
 }
-
-// Fungsi untuk menghapus kebun
+/**
+ * Memproses penghapusan data.
+ */
 function deleteKebun() {
-    global $con; // Ambil koneksi database
-    $id = $_GET['id'] ?? null; // Gunakan null untuk ID jika tidak ada
-    
-    // Validasi ID sebelum proses
-    if (is_numeric($id) && $id > 0) {
-        $sukses = hapusKebun($con, $id); // Panggil fungsi hapus dari model
-        
-        if ($sukses) {
-            header("Location: index.php?page=kebun&status=hapus_sukses");
-        } else {
-            header("Location: index.php?page=kebun&status=hapus_gagal");
-        }
-    } else {
-        header("Location: index.php?page=kebun&status=id_tidak_valid");
+    global $con;
+    $id = $_GET['id'] ?? 0; // Ambil ID dari URL
+
+    if ($id > 0) {
+        hapusKebun($con, $id);
     }
-    exit(); 
+    
+    // Arahkan kembali ke halaman daftar
+    header("Location: index.php?page=kebun");
+    exit();
 }
 ?>
