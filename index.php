@@ -16,7 +16,7 @@ $currentPage = $page;
 // Routing ke Controller yang sesuai
 switch ($page) {
     case 'beranda':
-        require_once '../AgroKendali/Controllers';
+        require_once '../AgroKendali/Controllers/pageController.php';
         index();
         break;
 

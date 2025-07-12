@@ -1,7 +1,8 @@
-<main class="flex-1 p-10 overflow-y-auto" style="background-color: #f0f7f4;">
+<main class="flex-1 p-10 overflow-y-auto  bg-[#f0f7f4] min-h-screen">
+    <div class="bg-white h-screen p-6 rounded-2xl shadow-md">
     <div class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl font-bold text-teal-700">💧 Laporan Kondisi Lahan</h1>
-        <a href="index.php?page=kondisi-lahan&action=tambah" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-5 rounded-lg">
+        <h1 class="text-3xl font-bold text-teal-700">Laporan Kondisi Lahan</h1>
+        <a href="index.php?page=kondisi-lahan&action=tambah" class="bg-emerald-500 hover:bg-sky-600 text-white font-bold py-2 px-5 rounded-lg">
             <i class="fas fa-plus mr-2"></i> Tambah Laporan Baru
         </a>
     </div>
@@ -33,6 +34,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
+    </div>
     </div>
 </main>
 
